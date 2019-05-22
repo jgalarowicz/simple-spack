@@ -1,0 +1,54 @@
+stages:
+  - build
+  - test
+  
+.project_activation: &project_activation
+  # Will ensure that the CI pipeline will 'only' run when initiated via the
+  # the web GUI (CI / CD -> Pipelines -> Run Pipeline).
+  only:
+    - web
+
+before_script:
+  - export TERM=xterm
+  - source $HOME/spack/share/spack/setup-env.sh
+
+build_spack_batch:
+  # Similiar to past example we are leveraging the GitLab Batch runner and as
+  # such we will need to provide the job submission parameters.
+  variables:
+    SCHEDULER_PARAMETERS: "--nodes=1 --partition=ecp-p9-4v100"
+  tags:
+    - xx-testing
+    - dosequis
+    - slurm
+    - nmc
+  <<: *project_activation
+
+  stage: build
+  script:
+    - spack --version
+    - spack env create myciminiqmc || echo "Spack env myciminiqmc already created"
+    - spack env activate myciminiqmc
+    - spack install miniqmc^cmake@3.6.0 ^openmpi ^openblas@0.3.5
+
+# Use shared .test_spack_stage code and project activation code
+test_spack_batch:
+  variables:
+    SCHEDULER_PARAMETERS: "--nodes=1 --partition=ecp-p9-4v100"
+  tags:
+    - xx-testing
+    - dosequis
+    - slurm
+    - nmc
+  <<: *project_activation
+  dependencies:
+    - build_spack_batch
+
+  stage: test
+  script:
+    - source $HOME/spack/share/spack/setup-env.sh
+    - spack env activate myciminiqmc
+    - which miniqmc
+    - which mpirun
+    - mpirun -np 2 miniqmc < ./input_args
+
