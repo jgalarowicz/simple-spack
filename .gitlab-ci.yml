@@ -17,7 +17,7 @@ build_spack_batch:
   # such we will need to provide the job submission parameters.
 #  variables:
 #    SCHEDULER_PARAMETERS: "--nodes=1 --partition=ecp-p9-4v100"
-    tags:
+  tags:
     - mirage
     - nmcc
     - p9
@@ -40,7 +40,7 @@ build_spack_batch:
 test_spack_batch:
 #  variables:
 #    SCHEDULER_PARAMETERS: "--nodes=1 --partition=ecp-p9-4v100"
-    tags:
+  tags:
     - mirage
     - nmcc
     - p9
