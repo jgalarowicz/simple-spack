@@ -44,7 +44,7 @@ test_spack_batch:
 #    - mirage
 #    - nmcc
 #    - p9
-    tags:
+  tags:
     - xx-testing
     - dosequis
     - slurm
