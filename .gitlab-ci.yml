@@ -17,16 +17,16 @@ build_spack_batch:
   # such we will need to provide the job submission parameters.
 #  variables:
 #    SCHEDULER_PARAMETERS: "--nodes=1 --partition=ecp-p9-4v100"
-  tags:
-    - mirage
-    - nmcc
-    - p9
-
 #  tags:
-#    - xx-testing
-#    - dosequis
-#    - slurm
-#    - nmc
+#    - mirage
+#    - nmcc
+#    - p9
+
+  tags:
+    - xx-testing
+    - dosequis
+    - slurm
+    - nmc
   <<: *project_activation
 
   stage: build
@@ -40,15 +40,15 @@ build_spack_batch:
 test_spack_batch:
 #  variables:
 #    SCHEDULER_PARAMETERS: "--nodes=1 --partition=ecp-p9-4v100"
-  tags:
-    - mirage
-    - nmcc
-    - p9
-#    tags:
-#    - xx-testing
-#    - dosequis
-#    - slurm
-#    - nmc
+#  tags:
+#    - mirage
+#    - nmcc
+#    - p9
+    tags:
+    - xx-testing
+    - dosequis
+    - slurm
+    - nmc
   <<: *project_activation
   dependencies:
     - build_spack_batch
