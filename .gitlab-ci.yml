@@ -1,3 +1,9 @@
+# This example shows usage of spack environments to build the proxy application
+# miniqmc.  This is an in place build, using an existing directory in the builders
+# $HOME directory.  It is a simple example using one build and one test stage.
+# spack builds miniqmc in the myminiqmc environment in the build stage, then in the
+# test stage the myminiqmc environment is activated and the miniqmc application is 
+# executed.  This shows that by activating the enviroment the path to miniqmc is set.
 stages:
   - build
   - test
